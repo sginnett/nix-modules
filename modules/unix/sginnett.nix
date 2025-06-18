@@ -68,20 +68,11 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
+    extraSpecialArgs = { inherit outputs; systemConfig = config; };
     users."${config.sginnett.personal.username}" = {
       imports = lib.mapAttrsToList (name: module: module) outputs.homeManagerModules;
 
-      programs.git = {
-        enable = true;
-        userName = config.sginnett.personal.gitUserName;
-        userEmail = config.sginnett.personal.gitEmail;
-        ignores = [ ".direnv" ".envrc" ];
-      };
-
-      programs.gh = {
-        enable = true;
-        gitCredentialHelper.enable = true;
-      };
+      sginnett.personal.enable = true;
 
       programs.neovim = {
         enable = true;
@@ -101,11 +92,6 @@
 
           vim.g.mapleader = ' '
         '';
-      };
-
-      programs.kitty = {
-        enable = true;
-        sginnett.defaults.enable = true;
       };
 
       home.stateVersion = "24.11";
