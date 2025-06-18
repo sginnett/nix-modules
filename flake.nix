@@ -25,8 +25,7 @@
     # darwinModules = outputs.lib.files.readModuleDir ./modules/darwin;
 
     # Home Manager modules
-    # homeManagerModules = outputs.lib.files.readModuleDir ./modules/home-manager;
-    homeManagerModules = {};
+    homeManagerModules = outputs.lib.files.readModuleDir ./modules/home-manager;
 
     # NixOS Configurations
     nixosConfigurations = nixpkgs.lib.mapAttrs (name: config:

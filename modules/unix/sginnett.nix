@@ -103,6 +103,11 @@
         '';
       };
 
+      programs.kitty = {
+        enable = true;
+        sginnett.defaults.enable = true;
+      };
+
       home.stateVersion = "24.11";
     };
   };

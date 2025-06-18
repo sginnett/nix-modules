@@ -9,6 +9,8 @@
     programs.fish.defaultShell = lib.mkEnableOption "Use Fish as the default interactive shell";
   };
 
+  config.environment.shells = lib.mkIf config.programs.fish.defaultShell [ pkgs.bash ];
+
   config.programs.bash = lib.mkIf config.programs.fish.defaultShell (lib.mkMerge [
     {
       # From nixos manual for fish shell: keep system shell as bash for POSIX compilance, but automatically
