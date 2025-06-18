@@ -17,7 +17,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           config
-        ];
+        ] ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.nixosModules;
       }
     ) (outputs.lib.files.readConfigDir ./nixos);
   };

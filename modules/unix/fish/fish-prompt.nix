@@ -1,5 +1,16 @@
+{ config, lib, ...}:
 {
-  config = {
+  /* Note: nixpkgs issue #340361 causes this to fail when using flakes
+     Can't properly track dependencies of modules
+  imports = [
+    outputs.nixosModules.fish-functions
+  ]; */
+
+  options = {
+    programs.fish.defaultPrompt = lib.mkEnableOption "Default fish prompt";
+  };
+
+  config = lib.mkIf config.programs.fish.defaultPrompt {
     programs.fish.functions = {
       fish_prompt = ''
         set -l last_status $status

@@ -3,16 +3,8 @@
 {
   system.stateVersion = "25.05";
 
-  imports = [
-    outputs.nixosModules.nix-defaults
-    outputs.nixosModules."fish-default-shell"
-    outputs.nixosModules."fish-functions"
-    outputs.nixosModules."fish-greeting"
-    outputs.nixosModules."fish-prompt"
-  ];
-
   nix.defaults.enable = true;
-  programs.fish.defaultShell = true;
+  programs.fish.defaults.enable = true;
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

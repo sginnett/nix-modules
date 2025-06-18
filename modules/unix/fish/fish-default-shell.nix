@@ -5,11 +5,6 @@
   };
 
   config = lib.mkIf config.programs.fish.defaultShell {
-    programs.fish = {
-      enable = true;
-      useBabelfish = true;
-    };
-
     # From nixos manual for fish shell: keep system shell as bash for POSIX compilance, but automatically
     # switch to fish when starting an interactive shell.
     programs.bash.interactiveShellInit = ''
