@@ -6,6 +6,8 @@
 
   # My personal config
   config.programs.neovim = lib.mkIf config.programs.neovim.sginnett.defaults.enable {
+    sginnett.lsp.enable = true;
+    sginnett.ui.enable = true;
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;
@@ -18,6 +20,9 @@
       tabstop = 2;
       expandtab = true;
       autoindent = true;
+      foldtext = "";
+      foldlevelstart = 2;
+      foldnestmax = 10;
     };
 
     options.vim.g.mapleader = " ";
@@ -32,28 +37,6 @@
       in [ "${grammarPath}" ];
 
       spec = {
-        # Theme, must come first in order for other plugins to pick up values
-        gruvbox-material = {
-          lazy = false;
-          priority = 1000;
-          config = ''
-            function()
-              vim.g.gruvbox_material_enable_italic = true;
-              vim.cmd.colorscheme('gruvbox-material');
-            end
-          '';
-        };
-
-        # Generic search in files, commands, ...
-        telescope-nvim = {
-          cmd = "Telescope";
-        };
-
-        # Keybindings guide/reminder
-        which-key-nvim = {
-          event = "VeryLazy";
-        };
-
         # Library used by many plugins
         plenary-nvim = {};
 
@@ -72,9 +55,9 @@
               highlight = {
                 enable = true,
               },
-              indent = {
-                enable = true,
-              },
+              -- indent = {
+              --  enable = true,
+              -- },
               incremental_selection = {
                 enable = true,
                 keymaps = {
@@ -87,6 +70,16 @@
             })
             vim.wo.foldmethod = "expr"
             vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            -- Prevent vim from folding where my cursor is on InsertLeave
+            vim.api.nvim_create_autocmd("InsertLeave", {
+              pattern = "*",
+              callback = function()
+                -- Save and restore fold state to prevent unwanted folding
+                local view = vim.fn.winsaveview()
+                vim.cmd("normal! zx") -- Recompute folds, but you can use 'zv' to open folds under cursor
+                vim.fn.winrestview(view)
+              end,
+            })
           end
           '';
         };
