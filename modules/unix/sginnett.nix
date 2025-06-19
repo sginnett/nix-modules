@@ -74,26 +74,6 @@
 
       sginnett.personal.enable = true;
 
-      programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-        vimAlias = true;
-        viAlias = true;
-        vimdiffAlias = true;
-        extraLuaConfig = ''
-          vim.opt.number = true
-          vim.opt.relativenumber = true
-          vim.opt.signcolumn = "yes"
-
-          vim.opt.shiftwidth = 2
-          vim.opt.tabstop = 2
-          vim.opt.expandtab = true
-          vim.opt.autoindent = true
-
-          vim.g.mapleader = ' '
-        '';
-      };
-
       home.stateVersion = "24.11";
     };
   };
