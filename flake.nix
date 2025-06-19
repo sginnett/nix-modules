@@ -27,6 +27,9 @@
     # Home Manager modules
     homeManagerModules = outputs.lib.files.readModuleDir ./modules/home-manager;
 
+    # My Personal Configs
+    personalModules = import ./personal { inherit outputs; };
+
     # NixOS Configurations
     nixosConfigurations = nixpkgs.lib.mapAttrs (name: config:
       nixpkgs.lib.nixosSystem {
@@ -34,7 +37,9 @@
         modules = [
           config
         ] ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.nixosModules
-          ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.unixModules;
+          ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.unixModules
+          ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.personalModules.nixosModules
+          ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.personalModules.unixModules;
       }
     ) (outputs.lib.files.readConfigDir ./nixos);
 
@@ -45,7 +50,9 @@
         config
         home-manager.darwinModules.home-manager
       ] # ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.darwinModules
-        ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.unixModules;
+        ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.unixModules
+        ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.personalModules.nixosModules
+        ++ nixpkgs.lib.mapAttrsToList (name: module: module) outputs.personalModules.unixModules;
     }) (outputs.lib.files.readConfigDir ./darwin);
   };
 }

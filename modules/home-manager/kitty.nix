@@ -1,13 +1,10 @@
 { config, pkgs, lib, ... }:
 {
   options = {
-    programs.kitty.sginnett.defaults.enable = lib.mkEnableOption "sam's kitty config";
     programs.kitty.gruvbox-theme.enable = lib.mkEnableOption "gruvbox colorscheme";
     programs.kitty.fira-code.enable = lib.mkEnableOption "fira code mono font";
   };
 
-  config.programs.kitty.gruvbox-theme.enable = lib.mkDefault (config.programs.kitty.enable && config.programs.kitty.sginnett.defaults.enable);
-  config.programs.kitty.fira-code.enable = lib.mkDefault (config.programs.kitty.enable && config.programs.kitty.sginnett.defaults.enable);
   config.programs.kitty.font = lib.mkIf config.programs.kitty.fira-code.enable {
     name = "FiraCode Nerd Font Mono";
     size = lib.mkDefault 11;

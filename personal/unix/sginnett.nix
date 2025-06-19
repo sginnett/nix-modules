@@ -70,7 +70,8 @@
     backupFileExtension = "bak";
     extraSpecialArgs = { inherit outputs; systemConfig = config; };
     users."${config.sginnett.personal.username}" = {
-      imports = lib.mapAttrsToList (name: module: module) outputs.homeManagerModules;
+      imports = (lib.mapAttrsToList (name: module: module) outputs.homeManagerModules)
+                ++ lib.mapAttrsToList (name: module: module) outputs.personalModules.homeManagerModules;
 
       sginnett.personal.enable = true;
 
