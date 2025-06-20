@@ -8,6 +8,7 @@
   config.programs.neovim = lib.mkIf config.programs.neovim.sginnett.defaults.enable {
     sginnett.lsp.enable = true;
     sginnett.ui.enable = true;
+    sginnett.edit.enable = true;
     defaultEditor = true;
     vimAlias = true;
     viAlias = true;

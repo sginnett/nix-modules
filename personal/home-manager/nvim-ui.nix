@@ -6,6 +6,19 @@
 
   config = {
     programs.neovim.lazy.spec = lib.mkIf config.programs.neovim.sginnett.ui.enable {
+
+      # ------------------ Theme ------------------
+      # Theme, must come first in order for other plugins to pick up values
+      gruvbox-material = {
+        lazy = false;
+        priority = 1000;
+        config = ''
+          function()
+            vim.g.gruvbox_material_enable_italic = true;
+            vim.cmd.colorscheme('gruvbox-material');
+          end
+        '';
+      };
       # Dev icons for nvim -- used by other plugins
       nvim-web-devicons = {
         shortName = "nvim-web-devicons";
@@ -19,31 +32,33 @@
             config.gruvbox-hex);
           in colors;
         };
-        lazy = false;
-        # event = "VeryLazy";
       };
-/*
-      mini-icons = {
-        lazy = false;
+
+      # ----------------- UI Enhancements ----------------
+      # Animate motions
+      mini-animate = {
+        event = "UiEnter";
+        opts = {
+        };
+      };
+
+      mini-indentscope = {
+        event = "UiEnter";
         opts = {};
       };
-*/
-      # Theme, must come first in order for other plugins to pick up values
-      gruvbox-material = {
-        lazy = false;
-        priority = 1000;
-        config = ''
-          function()
-            vim.g.gruvbox_material_enable_italic = true;
-            vim.cmd.colorscheme('gruvbox-material');
-          end
-        '';
+
+      # Show trailing whitespace
+      mini-trailspace = {
+        event = "VeryLazy";
+        opts = {};
       };
+
 
       # Keybindings guide/reminder
       which-key-nvim = {
         event = "VeryLazy";
         opts = {};
+        dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons tiny-devicons-auto-colors-nvim ];
       };
 
 
@@ -65,7 +80,7 @@
         };
 
         event = "VimEnter";
-        dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons ];
+        dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons tiny-devicons-auto-colors-nvim ];
       };
 
       # Shows open buffers in a tab-like format at top of the screen
@@ -97,7 +112,7 @@
 
       # File Tree
       nvim-tree-lua = {
-        dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons ];
+        dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons tiny-devicons-auto-colors-nvim ];
         opts = {};
         cmd = lib.map (name: "NvimTree" + name) [ "Open" "Close" "Toggle" "FindFile" "Refresh" ];
       };
