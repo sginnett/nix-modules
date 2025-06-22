@@ -41,12 +41,6 @@
         # Library used by many plugins
         plenary-nvim = {};
 
-        # Navigation around the document using the `s` command
-        leap-nvim = {
-          event = "UiEnter";
-          config = "function() require(\"leap\").create_default_mappings() end";
-        };
-
         treesitter = {
           package = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
           event = [ "BufReadPre" "BufNewFile" ];

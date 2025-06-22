@@ -24,7 +24,7 @@
         keymap.preset = "super-tab";
       };
     };
-    
+
     # Auto pairs
     nvim-autopairs = {
       opts = {
@@ -52,7 +52,7 @@
           debounce = 75;
           keymap = {
             accept = "<M-CR>";
-            accept_line = "<M-l>";
+            accept_line = "<M-;>";
             next = "<M-]>";
             prev = "<M-[>";
             dismiss = "<M-e>";
