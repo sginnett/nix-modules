@@ -5,6 +5,11 @@
   };
 
   config = {
+    programs.neovim.options = lib.mkIf config.programs.neovim.sginnett.ui.enable {
+      vim = {
+        opt.cmdheight = 0;
+      };
+    };
     programs.neovim.lazy.spec = lib.mkIf config.programs.neovim.sginnett.ui.enable {
 
       # ------------------ Theme ------------------
@@ -42,6 +47,8 @@
         };
       };
 
+      # Adds visual indent guides
+      # TODO: possible alternative indent-blankline-nvim
       mini-indentscope = {
         event = "UiEnter";
         opts = {};
@@ -67,6 +74,7 @@
         opts = {
           options = {
             theme = "gruvbox";
+            globalstatus = true;
           };
 
           sections = {
@@ -83,23 +91,6 @@
         dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons tiny-devicons-auto-colors-nvim ];
       };
 
-      # Shows open buffers in a tab-like format at top of the screen
-      bufferline-nvim = {
-        opts = {
-          options = {
-            separator_stype = "slant";
-            diagnostics = "nvim_lsp";
-            hover = {
-              enabled = true;
-              delay = 200;
-              reveal = [ "close" ];
-            };
-          };
-        };
-
-        event = "VimEnter";
-      };
-
       # Scrollbar on the right side of screen
       nvim-scrollbar = {
         event = "VimEnter";
@@ -114,7 +105,7 @@
       nvim-tree-lua = {
         dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons tiny-devicons-auto-colors-nvim ];
         opts = {};
-        cmd = lib.map (name: "NvimTree" + name) [ "Open" "Close" "Toggle" "FindFile" "Refresh" ];
+        cmd = lib.map (name: "NvimTree" + name) [ "" "Open" "Close" "Toggle" "FindFile" "Refresh" ];
       };
 
       # Show git status of lines
@@ -133,6 +124,21 @@
             vim.notify = require("notify")
           end
         '';
+      };
+
+      tabby-nvim = {
+        opts = {};
+        event = "UiEnter";
+        keys = [
+          [ "<Leader>to" ":tabonly<CR>" ]
+          [ "<Leader>ta" ":$tabnew<CR>" ]
+          [ "<Leader>tc" ":tabclose<CR>" ]
+          [ "<Leader>to" ":tabonly<CR>" ]
+          [ "<Leader>tn" ":tabnext<CR>" ]
+          [ "<Leader>tp" ":tabprevious<CR>" ]
+          [ "<Leader>tmp" ":-tabmove<CR>" ]
+          [ "<Leader>tmn" ":+tabmove<CR>" ]
+        ];
       };
 
 
@@ -188,6 +194,47 @@
         '';
       };
 
+
+      oil-nvim = {
+        shortName = "oil.nvim";
+        fullName = "stevearc/oil.nvim";
+        opts = {};
+        cmd = "Oil";
+        keys = [ [ "<Leader>o" ":Oil<CR>" ] ];
+      };
+
+      hardtime-nvim = {
+        opts = {};
+        event = "VeryLazy";
+      };
+
+      vim-be-better = {
+        opts = {};
+        cmd = "VimBeBetter";
+        package = pkgs.vimUtils.buildVimPlugin {
+          name = "vim-be-better";
+          src = pkgs.fetchFromGitHub {
+            owner = "szymonwilczek";
+            repo = "vim-be-better";
+            rev = "60e0214598d9d0bac8253e8b53a72eace4af92d3";
+            hash = "sha256-bbIhh5A1135UVMdQxUVMEHlqf1tCSbDP8QYQGg/OMa0=";
+          };
+        };
+      };
+
+      modes-nvim = {
+        opts = {};
+        event = "UiEnter";
+        package = pkgs.vimUtils.buildVimPlugin {
+          name = "modes.nvim";
+          src = pkgs.fetchFromGitHub {
+            owner = "mvllow";
+            repo = "modes.nvim";
+            rev = "64a78c397b6810fdbbbb5c36b375a5a4337c7be9";
+            hash = "sha256-j0E2Hyd03w6x/l2jQAQ1Pr/rbvAe8NbsEc30UHrrNWg=";
+          };
+        };
+      };
     };
   };
 }
