@@ -75,7 +75,10 @@ let
       concat: doc -> doc -> doc
       ````
       */
-    concat = left: right: { concat = { inherit left right; }; };
+    concat = left: right:
+             if left == null then right
+             else if right == null then left
+             else { concat = { inherit left right; }; };
 
     /**
       Concatenates a list of documents
@@ -115,7 +118,7 @@ let
       text: string -> doc
       ```
       */
-    text = string: { text = { inherit string; }; };
+    text = string: if string == "" then null else { text = { inherit string; }; };
 
     /**
       Prepends a linebreak to a DOCument
@@ -225,7 +228,7 @@ let
       DOCIter doc
         /* null => */ ""
         /* text => */ (string: rest: string + layout rest)
-        /* line => */ (indent: rest: "\n" + lib.strings.replicate indent " " + layout rest)
+        /* line => */ (indent: rest: if rest ? line then "\n" + layout rest else "\n" + lib.strings.replicate indent " " + layout rest)
         /* union => */ (left: right: throw "layout called on a union document, use pretty instead");
 
     /**

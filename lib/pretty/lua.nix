@@ -18,7 +18,7 @@ with lib; let
           else if luaVal._type == "lua-inline" then luaInlineToDoc args luaVal
           else throw "Unsupported special type for Lua: ${luaVal._type}"
         else luaTableToDoc args (mkLuaTable [] luaVal)
-      else throw "Unsupported type for Lua: ${lib.typeOf luaVal}";
+      else throw "Unsupported type for Lua: ${stdlib.typeOf luaVal}";
 
     # TODO: handle [ "name" ] style keys properly
     luaAttrsetBinding = args: name: value:
@@ -32,13 +32,13 @@ with lib; let
         named = luaTable.named;
         unnamedSection = commaSep { trailing = false; }
                            (stdlib.map (toLuaDoc args) unnamed);
-        mid = if builtins.length unnamed > 0 && builtins.length (lib.attrsToList named) > 0
+        mid = if builtins.length unnamed > 0 && builtins.length (stdlib.attrsToList named) > 0
               then (concat comma line) else null;
         namedSection = commaSep { trailing = false; }
                           (stdlib.mapAttrsToList
                             (luaAttrsetBinding args) named);
         in braces { lpad = nest 2 line; rpad = line; }
-              (nest 2 (concat unnamedSection namedSection));
+              (nest 2 (sequence [ unnamedSection mid namedSection ]));
 
     luaFunctionToDoc = args: luaFunction:
       if luaFunction._type != "lua-function"
@@ -63,7 +63,7 @@ with lib; let
 
     luaInlineToDoc = args: luaInline:
       concatSep { sep = hardline; }
-         (stdlib.map text (stdlib.strings.splitString "\n" luaInline.expr));
+         (stdlib.map text (stdlib.strings.splitString "\n" (stdlib.strings.trim luaInline.expr)));
 
     prettyLua = width: luaVal: lib.pretty width (toLuaDoc {} luaVal);
   };
