@@ -46,7 +46,10 @@
 
   config.programs.neovim.extraLuaConfig = lib.mkIf (config.programs.neovim.options.enable) (
     lib.mkOrder config.programs.neovim.options.order ''
-      require('${config.programs.neovim.options.filename}')
-      ''
+      local status, err = pcall(require, '${config.programs.neovim.options.filename}')
+      if not status then
+        vim.notify("Could not load ${config.programs.neovim.options.filename}.lua: " .. err, vim.log.levels.ERROR)
+      end
+    ''
   );
 }

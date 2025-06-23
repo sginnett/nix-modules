@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, outputs, ... }:
 {
   options = {
     programs.neovim.sginnett.ui.enable = lib.mkEnableOption "Enable nvim UI enhancements";
