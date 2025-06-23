@@ -138,6 +138,27 @@ let
     line = { line = { alternative = " "; }; };
 
     /**
+      Creates a line break with an alternative text to use if the
+      line break is flattened
+
+      # Type:
+      ```
+      lineWithAlt: string -> doc
+      ```
+      */
+    lineWithAlt = alternative: { line = { alternative = alternative; }; };
+
+    /**
+      Creates a line break that *must* be rendered as a line break
+
+      # Type:
+      ```
+      hardbreak: doc
+      ```
+      */
+    hardline = { line = { alternative = null; }; };
+
+    /**
       Creates a union of two alternate DOCuments
 
       # Type
@@ -168,6 +189,18 @@ let
     nest = level: doc: { nest = { inherit level doc; }; };
 
     /**
+      Checks if a document has any hard line breaks
+      */
+    hasHardLines = doc:
+      docIter doc
+        /* null => */ false
+        /* concat => */ (left: right: hasHardLines left || hasHardLines right)
+        /* nest => */ (level: rest: hasHardLines rest)
+        /* text => */ (string: false)
+        /* line => */ (alternative: alternative == null)
+        /* union => */ (left: right: hasHardLines left);
+
+    /**
       Creates two alternate documents, one of which has all lines flattened
 
       # Type:
@@ -175,7 +208,10 @@ let
       group :: doc -> doc
       ```
       */
-    group = doc: union (flatten doc) doc;
+    group = doc:
+      if hasHardLines doc
+      then doc
+      else union (flatten doc) doc;
 
     /**
       Turns a DOCument into a string. The document must not contain unions.
@@ -419,6 +455,6 @@ let
       });
     };
 }; in {
-  inherit (pretty) pretty concat sequence end text line nest group;
+  inherit (pretty) pretty concat sequence end text line nest group hardline lineWithAlt;
   inherit (pretty.types) doc;
 }
