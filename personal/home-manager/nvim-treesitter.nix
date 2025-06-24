@@ -18,7 +18,7 @@ with outputs.lib.lua; {
           incremental_selection = {
             enable = true;
             keymaps = {
-              init_selection = "gnn";
+              init_selection = "<Leader>n";
               node_incremental = "grn";
               scope_incremental = "grc";
               node_decremental = "grm";
@@ -35,6 +35,8 @@ with outputs.lib.lua; {
 
       # Make textobjects from treesitter queries
       # TODO: consider integrating with vim matchup
+      # TODO: the text objects here aren't repeatable wich
+      # is a bummer
       nvim-treesitter-textobjects = {
         lazy = false;
         config = let
@@ -121,6 +123,50 @@ with outputs.lib.lua; {
           })
         end'';
       };
+
+      /* not super happy with this plugin,
+          unpredictable behavior for large
+          text objects, but works well for
+          smaller ones
+      mini-ai = {
+        lazy = false;
+        opts = {
+          n_lines = 1000;
+          search_method = "cover";
+
+          mappings = {
+            around = "a";
+            inside = "i";
+            around_next = "an";
+            inside_next = "in";
+            around_last = "al";
+            inside_last = "il";
+
+            goto_left = "g[";
+            goto_right = "g]";
+
+            search_method = "cover_or_next";
+          };
+
+          custom_textobjects = [];
+        };
+
+        config = mkLuaFunction null [ "opts" ] (mkLuaInline ''
+          local spec_treesitter = require('mini.ai').gen_spec.treesitter
+          local mopts = vim.deepcopy(opts)
+          mopts.custom_textobjects = {
+            F = spec_treesitter({ a = "@function.outer", i = "@function.inner" }),
+            f = spec_treesitter({ a = "@call.outer", i = "@call.inner" }),
+            a = spec_treesitter({ a = "@parameter.outer", i = "@parameter.inner" }),
+            [ "=" ] = spec_treesitter({ a = "@assignment.outer", i = "@assignment.inner" }),
+
+          }
+          require('mini.ai').setup(
+            mopts
+          )
+        '');
+      }; */
+
     };
 
     extraRuntimePath = let
@@ -130,4 +176,7 @@ with outputs.lib.lua; {
       };
     in [ "${grammarPath}" ];
   };
+
+  config.programs.neovim.extraLuaConfig = ''
+  '';
 }

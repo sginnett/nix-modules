@@ -87,6 +87,8 @@
       keymap("n", "<C-j>", "<C-w>j", default_opts)
       keymap("n", "<C-k>", "<C-w>k", default_opts)
       keymap("n", "<C-l>", "<C-w>l", default_opts)
+
+      pcall(require, "local-dev") -- Escape hatch for local development
     '';
 
     lazy = {
