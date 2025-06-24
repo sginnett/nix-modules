@@ -27,24 +27,17 @@
       shiftwidth = 2;
       tabstop = 2;
       expandtab = true;
-      autoindent = true;
+      # autoindent = true;
       foldtext = "";
       foldlevelstart = 2;
       foldnestmax = 10;
+      showtabline = 2; # always show tabline
     };
 
     options.vim.g.mapleader = " ";
     options.vim.g.maplocalleader = " ";
 
     extraLuaConfig = ''
-      -- Highlight on yank
-      vim.cmd [[
-        augroup YankHighlight
-          autocmd!
-          autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-        augroup end
-      ]]
-
       -------- File search path ---
       vim.opt.path:append { "**" } -- search in subdirectories
 
@@ -58,8 +51,8 @@
       keymap("t", "jk", "<C-\\><C-n>", default_opts)
 
       -- Better search results (center screen)
-      keymap("n", "n", "nzz", default_opts)
-      keymap("n", "N", "Nzz", default_opts)
+      -- keymap("n", "n", "nzz", default_opts)
+      -- keymap("n", "N", "Nzz", default_opts)
 
       -- use visual lines for j and k
       keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_opts)
@@ -98,93 +91,10 @@
 
     lazy = {
       enable = true;
-      extraRuntimePath = let
-        grammarPath = pkgs.symlinkJoin {
-          name = "nvim-treesitter-grammars";
-          paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-        };
-      in [ "${grammarPath}" ];
 
       spec = {
-        # Library used by many plugins
+        # Dependency of many plugins
         plenary-nvim = {};
-
-        alpha-nvim = {
-          config = ''
-            function()
-              local dashboard = require("alpha.themes.dashboard")
-              dashboard.section.buttons.val = {
-                dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-                dashboard.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
-                dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
-              }
-
-              local function footer()
-                local total_plugins = require("lazy.stats").stats().count
-                local datetime = os.date "%d-%m-%Y  %H:%M:%S"
-                local plugins_text = "\t" .. total_plugins .. " plugins  " .. datetime
-
-                local fortune = require "alpha.fortune"
-                local quote = table.concat(fortune(), "\n")
-
-                return plugins_text .. "\n" .. quote
-              end
-
-              dashboard.section.footer.val = footer()
-              dashboard.section.footer.opts.hl = "Constant"
-              dashboard.section.header.opts.hl = "Include"
-              dashboard.section.buttons.opts.hl = "Function"
-              dashboard.section.buttons.opts.hl_shortcut = "Type"
-              dashboard.opts.opts.noautocmd = true
-
-              require("alpha").setup(dashboard.opts)
-            end
-          '';
-          lazy = false;
-        };
-
-        neogit = {
-          opts = {};
-          event = "VeryLazy";
-        };
-
-        treesitter = {
-          package = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-          event = [ "BufReadPre" "BufNewFile" ];
-          config = ''function()
-            require("nvim-treesitter.configs").setup({
-              auto_install = false,
-              highlight = {
-                enable = true,
-              },
-              -- indent = {
-              --  enable = true,
-              -- },
-              incremental_selection = {
-                enable = true,
-                keymaps = {
-                  init_selection = "gnn",
-                  node_incremental = "grn",
-                  scope_incremental = "grc",
-                  node_decremental = "grm",
-		            },
-              },
-            })
-            vim.wo.foldmethod = "expr"
-            vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            -- Prevent vim from folding where my cursor is on InsertLeave
-            vim.api.nvim_create_autocmd("InsertLeave", {
-              pattern = "*",
-              callback = function()
-                -- Save and restore fold state to prevent unwanted folding
-                local view = vim.fn.winsaveview()
-                vim.cmd("normal! zv") -- Recompute folds, but you can use 'zv' to open folds under cursor
-                vim.fn.winrestview(view)
-              end,
-            })
-          end
-          '';
-        };
       };
     };
   };

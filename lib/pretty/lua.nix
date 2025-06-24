@@ -20,9 +20,11 @@ with lib; let
         else luaTableToDoc args (mkLuaTable [] luaVal)
       else throw "Unsupported type for Lua: ${stdlib.typeOf luaVal}";
 
+    luaNameBinding = name: if stdlib.strings.match "^[a-zA-Z0-9_]+$" name == null then "[ " + builtins.toJSON name + " ]" else name;
+
     # TODO: handle [ "name" ] style keys properly
     luaAttrsetBinding = args: name: value:
-      concat (lib.text (name + " = ")) (toLuaDoc args value);
+      concat (lib.text (luaNameBinding name + " = ")) (toLuaDoc args value);
 
     luaTableToDoc = args: luaTable:
       if  luaTable._type != "lua-table"
@@ -58,7 +60,7 @@ with lib; let
 
     luaBlockToDoc = args: block:
       if b.isList block then
-        concatSep { sep = hardline;}
+        concatSep { sep = hardline;} (stdlib.map (toLuaDoc args) block)
       else toLuaDoc args block;
 
     luaInlineToDoc = args: luaInline:

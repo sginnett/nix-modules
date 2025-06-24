@@ -26,6 +26,11 @@
         description = "lazy.nvim plugin specification";
         type = lib.types.attrsOf (lib.types.submodule ({name, config, ... }: {
           options = {
+            requiresNodeJs = lib.mkOption {
+              type = lib.types.bool;
+              description = "Plugin requires Node Js";
+              default = false;
+            };
             shortName = lib.mkOption {
               type = lib.types.str;
               description = "Short name for the plugin, the repo part of the full github identifier";
@@ -43,6 +48,11 @@
               type = lib.types.package;
               description = "Nix package for the plugin, usually from vimPlugins";
               default = pkgs.vimPlugins.${name};
+            };
+            main = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "Main module for the plugin, if not the default";
             };
             enabled = lib.mkOption {
               type = lib.types.nullOr lib.types.bool;
@@ -70,7 +80,7 @@
             };
 
             config = lib.mkOption {
-              type = lib.types.nullOr (lib.types.oneOf [ lib.types.lines lib.types.path ]);
+              type = lib.types.nullOr (lib.types.oneOf [ lib.types.lines lib.types.path (lib.types.attrsOf lib.types.anything) ]);
               default = null;
             };
 
@@ -90,7 +100,7 @@
             };
 
             keys = lib.mkOption {
-              type = lib.types.nullOr (lib.types.listOf (lib.types.oneOf [ lib.types.str (lib.types.listOf lib.types.str) ]));
+              type = lib.types.anything;
               default = null;
             };
 
@@ -104,7 +114,7 @@
           config.fullName = lib.mkDefault (config.package.src.owner + "/" + config.shortName);
           config.lazySpec =
 	    lib.filterAttrs (name: val: val != null) {
-	      inherit (config) lazy opts cmd event ft keys enabled priority;
+	      inherit (config) lazy opts cmd event ft keys enabled priority main;
 	      dependencies = if config.dependencies == null then null else lib.map (dep: dep.fullName) config.dependencies;
 	      config = if builtins.isString config.config then outputs.lib.lua.mkLuaInline config.config else config.config;
 	    };
@@ -132,6 +142,11 @@
       }) config.programs.neovim.lazy.spec
     )
   );
+
+  config.programs.neovim.withNodeJs = lib.mkIf (
+    config.programs.neovim.lazy.enable
+    && (lib.any (t: t) (lib.mapAttrsToList (name: spec: spec.requiresNodeJs) config.programs.neovim.lazy.spec
+  ))) true;
 
   config.xdg.configFile = lib.mkIf config.programs.neovim.lazy.enable (lib.mkMerge [
     (lib.mapAttrs' (name: spec: {
