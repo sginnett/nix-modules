@@ -4,6 +4,7 @@ return function()
   vim.lsp.enable("nil_ls")
   vim.lsp.enable("lua_ls")
   vim.lsp.enable("none_ls")
+  vim.lsp.enable("basedpyright")
 
   ------------------ Language Specific Config ------------------------
   vim.lsp.config("lua_ls", {

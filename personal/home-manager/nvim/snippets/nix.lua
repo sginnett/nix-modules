@@ -57,7 +57,7 @@ local function snippets()
   return {
     s({ trig = ";as", snippetType = "autosnippet", wordTrig = false }, assignment()),
     s({ trig = ";mo", snippetType = "autosnippet", wordTrig = false }, module()),
-    s({ trig = ";wi", snippetType = "autoshippet", wordTrig = false }, with())
+    s({ trig = ";wi", snippetType = "autosnippet", wordTrig = false }, with())
   }
 end
 

@@ -173,5 +173,11 @@ with outputs.lib.lua; {
   config.xdg.configFile."nvim/lua/lsp.lua".source = ./nvim/lsp.lua;
   config.xdg.configFile."nvim/snippets".source = ./nvim/snippets;
 
-  config.home.packages = [ pkgs.nil pkgs.lua-language-server pkgs.nodePackages.cspell pkgs.luajitPackages.jsregexp ];
+  config.home.packages = [ 
+    pkgs.nil pkgs.lua-language-server
+    pkgs.nodePackages.cspell
+    pkgs.basedpyright
+    # TODO: luasnip seems to not be seeing this
+    pkgs.luajitPackages.jsregexp
+  ];
 }
