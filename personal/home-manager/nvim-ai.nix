@@ -7,16 +7,23 @@
       requiresNodeJs = true;
       opts = {
         suggestion = {
-          enabled = true;
-          auto_trigger = true;
-          debounce = 75;
-          keymap = {
-            accept = "<M-CR>";
-            accept_line = "<M-;>";
-            next = "<M-]>";
-            prev = "<M-[>";
-            dismiss = "<M-e>";
-          };
+          enabled = false;
+          # auto_trigger = true;
+          # debounce = 75;
+          # keymap = {
+          #   accept = "<M-CR>";
+          #   accept_line = "<M-;>";
+          #   next = "<M-]>";
+          #   prev = "<M-[>";
+          #   dismiss = "<M-e>";
+          # };
+        };
+        panel = {
+          enabled = false;
+        };
+        filetypes = {
+          markdown = true;
+          help = true;
         };
       };
       cmd = [ "Copilot" ];
@@ -25,7 +32,14 @@
     # Copilot chat
     CopilotChat-nvim = {
       requiresNodeJs = true;
-      opts = {};
+      opts = {
+        mappings = {
+          reset = {
+            normal = "<M-r>";
+            insert = "<M-r>";
+          };
+        };
+      };
       cmd = lib.map (cmd: "CopilotChat" + cmd) [
         "" "Open" "Close" "Toggle" "Stop" "Reset"
         "Save" "Load" "Prompts" "Models" "Agents"

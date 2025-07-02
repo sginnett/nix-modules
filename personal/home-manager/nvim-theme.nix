@@ -26,11 +26,18 @@ with outputs.lib.lua; {
       };
 
       tiny-devicons-auto-colors-nvim = {
-        opts = {
-          colors = let colors = lib.mapAttrsToList (name: hex: hex) (
-            config.gruvbox-hex);
-          in colors;
-        };
+        config = mkLuaFunction null [] (mkLuaInline ''
+          local opts = {
+            colors = require('theme-colors').get_hex_colors()
+          };
+          require('tiny-devicons-auto-colors').setup(opts)
+        '');
+      };
+    };
+
+    xdg.configFile = {
+      "nvim/lua/theme-colors.lua" = {
+        source = ./nvim/theme-colors.lua;
       };
     };
   };

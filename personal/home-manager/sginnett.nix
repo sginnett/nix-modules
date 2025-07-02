@@ -9,7 +9,7 @@
   config.programs.git.enable = lib.mkDefault config.sginnett.personal.enable;
   config.programs.git.sginnett.defaults.enable = lib.mkDefault config.sginnett.personal.enable;
 
-  config.programs.neovim.enable = lib.mkDefault config.sginnett.personal.enable;
+  config.programs.neovim.enable = true; # lib.mkDefault config.sginnett.personal.enable;
   config.programs.neovim.sginnett.defaults.enable = lib.mkDefault config.sginnett.personal.enable;
 
   config.programs.kitty = {

@@ -1,23 +1,41 @@
 { config, pkgs, lib, outputs, ... }:
-{
+with outputs.lib.lua; {
   config.programs.neovim.lazy.spec = lib.mkIf config.programs.neovim.sginnett.defaults.enable {
     # Statusline
     lualine-nvim = {
       opts = {
         options = {
-          theme = "gruvbox";
+          theme = "gruvbox-material";
           globalstatus = true;
+          always_show_tabline = true;
         };
 
         sections = {
           lualine_a = [ "mode" ];
-          lualine_b = [ "branch" "diff" "diagnostics" ];
+          lualine_b = [ "diff" "diagnostics" ];
           lualine_c = [ "filename" ];
-          lualine_x = [ "lsp_status" "filetype" ];
-          lualine_y = [ "progress" ];
-          lualine_z = [ "location" ];
+          lualine_x = [ "lsp_status" ];
+          lualine_y = [ "filetype" "encoding" "fileformat"];
+          lualine_z = [ "progress" "location" ];
+        };
+
+        tabline = {
+          lualine_a = [ "mode" ];
+          lualine_b = [ "branch" ];
+          lualine_c = [ "tabs" ];
+          lualine_x = [ "windows" ];
+          lualine_y = [ ];
+          lualine_z = [ "datetime" ];
         };
       };
+
+      config = mkLuaFunction null [ "plugin" "opts" ] (mkLuaInline ''
+        opts.tabline.lualine_y = {
+          { require("recorder").recordingStatus },
+          { require("recorder").displaySlots },
+        }
+        require("lualine").setup(opts)
+      '');
 
       event = "VeryLazy";
       dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons ];

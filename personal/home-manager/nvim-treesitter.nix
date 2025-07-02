@@ -15,15 +15,6 @@ with outputs.lib.lua; {
           indent = {
             enable = true;
           };
-          incremental_selection = {
-            enable = true;
-            keymaps = {
-              init_selection = "<Leader>n";
-              node_incremental = "grn";
-              scope_incremental = "grc";
-              node_decremental = "grm";
-            };
-          };
         };
         config = mkLuaFunction null [ "opts" ] (mkLuaInline
         ''
@@ -34,9 +25,6 @@ with outputs.lib.lua; {
       };
 
       # Make textobjects from treesitter queries
-      # TODO: consider integrating with vim matchup
-      # TODO: the text objects here aren't repeatable wich
-      # is a bummer
       nvim-treesitter-textobjects = {
         lazy = false;
         config = let
