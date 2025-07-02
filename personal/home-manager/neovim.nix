@@ -40,6 +40,7 @@
     extraLuaConfig = ''
       -------- File search path ----------
       vim.opt.path:append { "**" } -- search in subdirectories
+      vim.cmd([[call trailspace#TrailspaceSetup()]])
     '';
 
     lazy = {
@@ -51,5 +52,7 @@
       };
     };
   };
+
+  config.xdg.configFile."nvim/autoload".source = ./nvim/autoload;
 
 }
