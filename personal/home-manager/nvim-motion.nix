@@ -28,8 +28,5 @@
         };
       };
     };
-
-    xdg.configFile."nvim/lua/flash-motions.lua".source = ./nvim/flash-motions.lua;
-
   };
 }

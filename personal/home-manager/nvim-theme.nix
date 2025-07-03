@@ -34,11 +34,5 @@ with outputs.lib.lua; {
         '');
       };
     };
-
-    xdg.configFile = {
-      "nvim/lua/theme-colors.lua" = {
-        source = ./nvim/theme-colors.lua;
-      };
-    };
   };
 }

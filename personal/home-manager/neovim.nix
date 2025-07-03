@@ -53,6 +53,12 @@
     };
   };
 
-  config.xdg.configFile."nvim/autoload".source = ./nvim/autoload;
+  config.xdg.configFile = lib.mkIf config.programs.neovim.sginnett.defaults.enable {
+    "nvim/autoload".source = ./nvim/autoload;
+    "nvim/lua" = {
+      source = ./nvim/lua;
+      recursive = true;
+    };
+  };
 
 }

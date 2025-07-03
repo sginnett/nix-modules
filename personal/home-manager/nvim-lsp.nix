@@ -66,7 +66,7 @@ with outputs.lib.lua; {
         }
         require("luasnip").config.setup(opts)
         require("luasnip.loaders.from_vscode").lazy_load()
-        require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/snippets";})
+        require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/lua/snippets";})
       '');
     };
 
@@ -170,10 +170,7 @@ with outputs.lib.lua; {
     };
   };
 
-  config.xdg.configFile."nvim/lua/lsp.lua".source = ./nvim/lsp.lua;
-  config.xdg.configFile."nvim/snippets".source = ./nvim/snippets;
-
-  config.home.packages = [ 
+  config.home.packages = [
     pkgs.nil pkgs.lua-language-server
     pkgs.nodePackages.cspell
     pkgs.basedpyright

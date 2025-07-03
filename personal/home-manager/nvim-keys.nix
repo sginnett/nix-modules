@@ -51,6 +51,4 @@ with outputs.lib.lua; {
       require('keymaps')
     '';
   };
-
-  config.xdg.configFile."nvim/lua/keymaps.lua".source = ./nvim/keymaps.lua;
 }
