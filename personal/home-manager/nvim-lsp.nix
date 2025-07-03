@@ -105,6 +105,12 @@ with outputs.lib.lua; {
           preset = "luasnip";
         };
       };
+
+      config = mkLuaFunction null [ "plugin" "opts" ] (mkLuaInline ''
+        opts.keymap['<C-k>'] = {}
+        local cmp = require("blink.cmp")
+        cmp.setup(opts)
+      '');
     };
 
 

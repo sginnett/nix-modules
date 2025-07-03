@@ -102,7 +102,7 @@ nnoremap("<M-L>", "<cmd>Treewalker SwapRight<CR>", "Move to sibling node")
 ----------------------------Snippets -------------------------------------------
 local ls = require("luasnip")
 
-inoremap("<C-K>", function() ls.expand() end, "Manually trigger snippet")
+-- inoremap("<C-K>", function() ls.expand() end, "Manually trigger snippet")
 isnoremap("<C-L>", function() ls.jump(1) end, "Jump to last snippet section")
 isnoremap("<C-J>", function() ls.jump(1) end, "Jump to next snippet section")
 isnoremap(
@@ -114,13 +114,3 @@ isnoremap(
   end,
   "Toggle snippet choice"
 )
-
-vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
-vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
-
-vim.keymap.set({"i", "s"}, "<C-E>", function()
-	if ls.choice_active() then
-		ls.change_choice(1)
-	end
-end, {silent = true})

@@ -31,8 +31,8 @@ with outputs.lib.lua; {
 
       config = mkLuaFunction null [ "plugin" "opts" ] (mkLuaInline ''
         opts.tabline.lualine_y = {
-          { require("recorder").recordingStatus },
-          { require("recorder").displaySlots },
+          -- { require("recorder").recordingStatus },
+          -- { require("recorder").displaySlots },
         }
         require("lualine").setup(opts)
       '');
