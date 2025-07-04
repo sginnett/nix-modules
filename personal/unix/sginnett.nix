@@ -27,7 +27,7 @@
       };
     };
   };
- 
+
   config.programs = lib.mkIf config.sginnett.personal.enable {
     fish.defaults.enable = true;
   };
@@ -61,6 +61,7 @@
 
         kitty
         brave
+        tdf
     ];
   };
   config.home-manager = lib.mkIf config.sginnett.personal.enable {

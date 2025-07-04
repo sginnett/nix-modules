@@ -42,6 +42,14 @@ with outputs.lib.lua; {
           };
         };
       };
+
+      # Create new "modes" and keybinding overlays
+      hydra-nvim = {
+        lazy = false;
+        config = mkLuaFunction null [] (mkLuaInline ''
+          require('hydra-setup')
+        '');
+      };
     };
 
     # My Keymaps
