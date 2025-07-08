@@ -48,8 +48,9 @@ with outputs.lib.lua; {
               };
             };
 
+            # Note: <count>p is badly broken with this enabled
             paste = {
-              enabled = true;
+              enabled = false;
               default_animation = "fade";
               paste_mapping = "p";
               Paste_mapping = "P";
@@ -104,7 +105,7 @@ with outputs.lib.lua; {
         };
       };
 
-			#    # Show whitespace in visual modewhitespace whitespace whitespace 
+			#    # Show whitespace in visual modewhitespace whitespace whitespace
 			# visual-whitespace-nvim = {
 			#   opts = {};
 			# 	event = "VeryLazy";
@@ -209,7 +210,7 @@ with outputs.lib.lua; {
   };
 /*
   config.programs.neovim.extraLuaConfig = lib.mkIf config.programs.neovim.sginnett.ui.enable ''
-config.programs.neovim.extraLuaConfig 
+config.programs.neovim.extraLuaConfig
   vim.api.nvim_create_autocmd("TextYankPost", {
    desc = "Highlight when yanking (copying) text",
    callback = function(args)

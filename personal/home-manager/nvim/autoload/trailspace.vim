@@ -3,6 +3,9 @@ function! s:SetupMatch()
   if !exists('w:trailspace_match_id')
     let w:trailspace_match_id = -1
   endif
+  if &buftype != ""
+    return s:DestroyMatch()
+  endif
   if w:trailspace_match_id == -1
     let w:trailspace_match_id = matchadd('TrailingSpace', '\s\+$')
   endif
@@ -31,10 +34,11 @@ function! trailspace#TrailspaceSetup()
     autocmd InsertEnter * highlight clear TrailingSpace
     autocmd InsertLeave * highlight link TrailingSpace @comment.error
     autocmd WinNew,VimEnter * call s:SetupMatch()
+    autocmd OptionSet buftype call s:SetupMatch()
   augroup END
 
-  command Trim %s/\s\+$/
-  command TrailspaceDisable call s:DestroyMatch()
-  command TrailspaceEnable call s:SetupMatch()
-  command TrailspaceToggle call s:Toggle()
+  command! Trim %s/\s\+$/
+  command! TrailspaceDisable call s:DestroyMatch()
+  command! TrailspaceEnable call s:SetupMatch()
+  command! TrailspaceToggle call s:Toggle()
 endfunction
