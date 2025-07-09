@@ -26,10 +26,10 @@ function! s:Toggle()
 endfunction
 
 
-function! trailspace#TrailspaceSetup()
+function! trail_space#Setup()
   highlight link TrailingSpace @comment.error
 
-  augroup Trailspace
+  augroup TrailSpace
     autocmd!
     autocmd InsertEnter * highlight clear TrailingSpace
     autocmd InsertLeave * highlight link TrailingSpace @comment.error
@@ -38,7 +38,7 @@ function! trailspace#TrailspaceSetup()
   augroup END
 
   command! Trim %s/\s\+$/
-  command! TrailspaceDisable call s:DestroyMatch()
-  command! TrailspaceEnable call s:SetupMatch()
-  command! TrailspaceToggle call s:Toggle()
+  command! TrailSpaceDisable call s:DestroyMatch()
+  command! TrailSpaceEnable call s:SetupMatch()
+  command! TrailSpaceToggle call s:Toggle()
 endfunction

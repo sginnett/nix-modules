@@ -1,3 +1,4 @@
+-- cspell:words nxnoremap nxonoremap isnoremap
 local km = vim.keymap
 local flash = require("flash-motions")
 
@@ -44,7 +45,7 @@ end
 
 -----------------------------Default Behavior Modifiers ------------------------
 -- Cancel search highlight with esc
-nnoremap("<Esc>", "<Esc>:nohlsearch<CR>", "Escape and unhighlight search")
+nnoremap("<esc>", "<esc><cmd>nohlsearch<cr>", "Escape and unhighlight search")
 
 -- use visual lines for j and k with no count
 nnoremap("k", "v:count == 0 ? 'gk' : 'k'", "step visual lines with k", { expr = true })
@@ -57,26 +58,10 @@ nxonoremap("<Space>", "<Nop>", "No operation for space")
 xnoremap("<", "<gv", "re-highlight after indent")
 xnoremap(">", ">gv", "re-highlight after indent")
 
------------------------------Buffer switching ----------------------------------
--- nnoremap("<M-l>", ":bnext<CR>")
--- nnoremap("<M-l>", ":bprevious<CR>")
-
------------------------------Window Management ---------------------------------
--- Resize panes
-nnoremap("<M-Up>", ":resize +1<CR>", "Increase vertical size of window")
-nnoremap("<M-Down>", ":resize -1<CR>", "Decrease vertical size of window")
-nnoremap("<M-Left>", ":vertical resize -1<CR>", "Decrease horizontal size of window")
-nnoremap("<M-Right>", ":vertical resize +1<CR>", "Increase horizontal size of window")
-
--- Navigate panes with Ctrl + h/j/k/l
-nnoremap("<C-h>", "<C-w>h", "move to left window")
-nnoremap("<C-j>", "<C-w>j", "move to bottom window")
-nnoremap("<C-k>", "<C-w>k", "move to top window")
-nnoremap("<C-l>", "<C-w>l", "move to left window")
-
 -----------------------------Extra Actions -------------------------------------
 inoremap("<M-U>", "<Esc>gUiWEa", "make the most recently typed WORD uppercase")
 inoremap("<M-u>", "<Esc>guiWEa", "make the most recently typed WORD lowercase")
+inoremap("<M-~>", "<Esc>gi~WEa", "make the most recently typed WORD lowercase")
 
 nxnoremap("ga", "<Plug>(EasyAlign)", "align selected text")
 
@@ -89,15 +74,15 @@ onoremap("R", flash.flash_treesitter_search, "Search treesitter nodes")
 
 nnoremap("<Leader>vd", flash.flash_remote_diagnostics)
 
-nnoremap("<M-h>", "<cmd>Treewalker Left<Cr>", "Move to sibling node")
-nnoremap("<M-j>", "<cmd>Treewalker Down<Cr>", "Move to parent node")
-nnoremap("<M-k>", "<cmd>Treewalker Up<Cr>", "Move to child node")
-nnoremap("<M-l>", "<cmd>Treewalker Right<Cr>", "Move to sibling node")
+nnoremap("<M-h>", "<cmd>Treewalker Left<cr>", "Move to sibling node")
+nnoremap("<M-j>", "<cmd>Treewalker Down<cr>", "Move to parent node")
+nnoremap("<M-k>", "<cmd>Treewalker Up<cr>", "Move to child node")
+nnoremap("<M-l>", "<cmd>Treewalker Right<cr>", "Move to sibling node")
 
-nnoremap("<M-H>", "<cmd>Treewalker SwapLeft<Cr>", "Move to sibling node")
-nnoremap("<M-J>", "<cmd>Treewalker SwapDown<Cr>", "Move to parent node")
-nnoremap("<M-K>", "<cmd>Treewalker SwapUp<CR>", "Move to child node")
-nnoremap("<M-L>", "<cmd>Treewalker SwapRight<CR>", "Move to sibling node")
+nnoremap("<M-H>", "<cmd>Treewalker SwapLeft<cr>", "Move to sibling node")
+nnoremap("<M-J>", "<cmd>Treewalker SwapDown<cr>", "Move to parent node")
+nnoremap("<M-K>", "<cmd>Treewalker SwapUp<cr>", "Move to child node")
+nnoremap("<M-L>", "<cmd>Treewalker SwapRight<cr>", "Move to sibling node")
 
 ----------------------------Snippets -------------------------------------------
 local ls = require("luasnip")

@@ -23,26 +23,14 @@ with outputs.lib.lua; {
           lualine_a = [ "mode" ];
           lualine_b = [ "branch" ];
           lualine_c = [ "tabs" ];
-          lualine_x = [ "windows" ];
+          lualine_x = [ "%S" ];
           lualine_y = [ ];
           lualine_z = [ "datetime" ];
         };
       };
 
-      config = mkLuaFunction null [ "plugin" "opts" ] (mkLuaInline ''
-        opts.tabline.lualine_y = {
-          -- { require("recorder").recordingStatus },
-          -- { require("recorder").displaySlots },
-        }
-        require("lualine").setup(opts)
-      '');
-
       event = "VeryLazy";
       dependencies = with config.programs.neovim.lazy.spec; [ nvim-web-devicons ];
     };
-  };
-
-  config.programs.neovim.options = lib.mkIf config.programs.neovim.sginnett.defaults.enable {
-    vim.opt.cmdheight = 0;
   };
 }

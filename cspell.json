@@ -1,10 +1,37 @@
 {
-  "dictionaries": ["custom-words"],
   "dictionaryDefinitions": [
     {
-      "name": "custom-words",
-      "path": "./.cspell/custom-words.txt",
-      "addWords": true
+      "name":"custom-words",
+      "path":"./.cspell/custom-words.txt",
+      "addWords":true
+    },
+    {
+      "name":"nix",
+      "path":"./.cspell/nix.txt",
+      "addWords":true
+    },
+    {
+      "name":"vim",
+      "path":"./.cspell/vim.txt",
+      "addWords":true
+    },
+    {
+      "name":"vim-plugins",
+      "path":"./.cspell/vim-plugins.txt",
+      "addWords":true
+    }
+  ],
+  "dictionaries": ["custom-words"],
+  "languageSettings":[
+    {
+      "locale":"*",
+      "languageId":"vim,lua",
+      "dictionaries":["vim", "vim-plugins"]
+    },
+    {
+      "locale":"*",
+      "languageId":"nix",
+      "dictionaries":["nix", "vim-plugins"]
     }
   ]
 }

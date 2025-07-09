@@ -1,30 +1,5 @@
-nix
-nixos
-nixpkgs
-pkgs
 sginnett
-
-nvim
-keymap
-keymaps
-textobject
-textobjects
-statusline
-foldtext
-
-neoclip
-gitsigns
 
 # Words in default lists to remove
 # Populated by typos I've made that weren't caught
 !anc
-noremap
-onoremap
-nnoremap
-deepcopy
-nxonoremap
-nohlsearch
-xnoremap
-bnext
-bprevious
-inoremap
