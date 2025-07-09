@@ -8,15 +8,15 @@
       opts = {
         suggestion = {
           enabled = false;
-          # auto_trigger = true;
-          # debounce = 75;
-          # keymap = {
-          #   accept = "<M-CR>";
-          #   accept_line = "<M-;>";
-          #   next = "<M-]>";
-          #   prev = "<M-[>";
-          #   dismiss = "<M-e>";
-          # };
+          auto_trigger = true;
+          debounce = 75;
+          keymap = {
+            accept = "<M-CR>";
+            accept_line = "<M-;>";
+            next = "<M-]>";
+            prev = "<M-[>";
+            dismiss = "<M-e>";
+          };
         };
         panel = {
           enabled = false;

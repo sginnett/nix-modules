@@ -14,9 +14,10 @@
     vimdiffAlias = true;
 
     extraLuaConfig = lib.mkBefore ''
-      -------- File search path ----------
-      -- vim.opt.path:append { "**" } -- search in subdirectories
-      require('pre-lazy')
+      local status, errmsg = pcall(require, 'pre-lazy')
+      if not status then
+        vim.notify("Error loading vimscript: " .. errmsg, vim.log.levels.ERROR)
+      end
     '';
 
     lazy = {
@@ -36,6 +37,7 @@
       recursive = true;
     };
     "nvim/after".source = ./nvim/after;
+    "nvim/queries".source = ./nvim/queries;
   };
 
 }

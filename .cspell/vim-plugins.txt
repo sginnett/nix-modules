@@ -2,3 +2,10 @@ lualine
 nvim
 devicons
 gruvbox
+hardtime
+hawtkeys
+lspconfig
+luasnip
+autosnippets
+autopairs
+treewalker

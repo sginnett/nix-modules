@@ -10,25 +10,9 @@ with outputs.lib.lua; {
       };
     };
 
-    # Macro management
-    # Note: breaks some key combos starting with q
-    # nvim-recorder = {
-    #   event = "UiEnter";
-    #   opts = {};
-    #   package = pkgs.vimUtils.buildVimPlugin {
-    #     name = "nvim-recorder";
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "chrisgrieser";
-    #       repo = "nvim-recorder";
-    #       rev = "b045c10032fe3d5d09ef58acd0a10619b7496408";
-    #       sha256 = "sha256-br4OuojCK9Ql7DCBbt+VGRGXr0x01PNymCaWB5+5F7o=";
-    #     };
-    #   };
-    # };
-
     # Marks manager
     # keymaps for deleting marks and show marks in
-    # statusline
+    # the signcolumn
     marks-nvim = {
       event = "VeryLazy";
       opts = {};
@@ -57,7 +41,7 @@ with outputs.lib.lua; {
           setup = false;
         };
       };
-      
+
       # Use an updated version with lsp diagnostics integration
       package = pkgs.vimUtils.buildVimPlugin {
         name = "nvim-origami";
@@ -74,7 +58,5 @@ with outputs.lib.lua; {
     vim-easy-align = {
       lazy = false;
     };
-
-    
   };
 }

@@ -2,7 +2,7 @@
 with outputs.lib.lua; {
   config.programs.neovim = lib.mkIf config.programs.neovim.sginnett.defaults.enable {
     lazy.spec = {
-      # Prevent bad habbits
+      # Prevent bad habits
       hardtime-nvim = {
         opts = {};
         event = "VeryLazy";
@@ -26,7 +26,7 @@ with outputs.lib.lua; {
       hawtkeys = {
         opts = {
         };
-        cmd = [ "Hawtkeys" "HawtkeysAll" "HawtkeysDups" ];
+        cmd = [ "Hawtkeys" "HawtkeysAll" "HawtkeysDupes" ];
         package = pkgs.vimUtils.buildVimPlugin {
           name = "hawtkeys.nvim";
           namePrefix = "";
