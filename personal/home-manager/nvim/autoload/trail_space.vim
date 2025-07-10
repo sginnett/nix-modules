@@ -33,7 +33,7 @@ function! trail_space#Setup()
     autocmd!
     autocmd InsertEnter * highlight clear TrailingSpace
     autocmd InsertLeave * highlight link TrailingSpace @comment.error
-    autocmd WinNew,VimEnter * call s:SetupMatch()
+    autocmd WinNew,BufWinEnter,VimEnter * call s:SetupMatch()
     autocmd OptionSet buftype call s:SetupMatch()
   augroup END
 

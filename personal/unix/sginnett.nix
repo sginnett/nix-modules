@@ -20,7 +20,7 @@
         type = outputs.lib.types.email;
         description = "Global git email for my profile";
       };
-      
+
       gitUserName = lib.mkOption {
         type = lib.types.str;
         default = "Sam Ginnett";

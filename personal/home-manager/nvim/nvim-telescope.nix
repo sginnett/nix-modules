@@ -26,8 +26,8 @@ with outputs.lib.lua; {
         [ "<Leader>fgr" ":Telescope live_grep<CR>" ]
 
         # Help and reference
-        [ "<Leader>fh" ":Telescope help_tags<CR>" ]
-        [ "<Leader>fc" ":Telescope commands<CR>" ]
+        [ "<Leader>fhe" ":Telescope help_tags<CR>" ]
+        [ "<Leader>fcm" ":Telescope commands<CR>" ]
         [ "<Leader>fmn" ":Telescope man_pages<CR>" ]
         [ "<Leader>fkm" ":Telescope keymaps<CR>" ]
 
@@ -55,7 +55,7 @@ with outputs.lib.lua; {
         [ "<Leader>fju" ":Telescope jumplist<CR>" ]
         [ "<Leader>ftr" ":Telescope treesitter<CR>" ]
         [ "<Leader>fhl" ":Telescope highlights<CR>" ]
-        [ "<Leader>fco" ":Telescope colorscheme<CR>" ]
+        [ "<Leader>fcl" ":Telescope colorscheme<CR>" ]
         [ "<Leader>fcb" ":Telescope current_buffer_fuzzy_find<CR>" ]
         [ "<Leader>fct" ":Telescope current_buffer_tags<CR>" ]
         [ "<Leader>fvo" ":Telescope vim_options<CR>" ]

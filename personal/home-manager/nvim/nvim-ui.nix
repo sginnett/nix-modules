@@ -18,7 +18,7 @@ with outputs.lib.lua; {
           };
         };
         opts = {
-          seconds = 2;
+          seconds = 2  ;
           title = "Tip!";
           url = "https://vtip.43z.one";
         };
@@ -108,46 +108,46 @@ with outputs.lib.lua; {
 
       # Text object for current indent scope
       # + animation
-      mini-indentscope = {
-        opts = {};
-        event = "VeryLazy";
-      };
+      # mini-indentscope = {
+      #   opts = {};
+      #   event = "VeryLazy";
+      # };
 
       # Indentation guides
-      indent-blankline-nvim = {
-        main = "ibl";
-        opts = {};
-        event = "VeryLazy";
-      };
+      # indent-blankline-nvim = {
+      #   main = "ibl";
+      #   opts = {};
+      #   event = "VeryLazy";
+      # };
 
-      modes-nvim = {
-        event = "UiEnter";
-        opts = {
-          line_opacity = 0.15;
-          set_cursor = true;
-          set_cursorline = true;
-          set_number = true;
-          set_signcolumn = true;
-
-          colors = {
-            copy = config.gruvbox-hex.neutral_yellow;
-            delete = config.gruvbox-hex.neutral_red;
-            change = config.gruvbox-hex.neutral_orange;
-            format = config.gruvbox-hex.neutral_blue;
-            insert = config.gruvbox-hex.neutral_aqua;
-            visual = config.gruvbox-hex.neutral_green;
-          };
-        };
-        package = pkgs.vimUtils.buildVimPlugin {
-          name = "modes.nvim";
-          src = pkgs.fetchFromGitHub {
-            owner = "mvllow";
-            repo = "modes.nvim";
-            rev = "64a78c397b6810fdbbbb5c36b375a5a4337c7be9";
-            hash = "sha256-j0E2Hyd03w6x/l2jQAQ1Pr/rbvAe8NbsEc30UHrrNWg=";
-          };
-        };
-      };
+      # modes-nvim = {
+      #   event = "UiEnter";
+      #   opts = {
+      #     line_opacity = 0.15;
+      #     set_cursor = true;
+      #     set_cursorline = true;
+      #     set_number = true;
+      #     set_signcolumn = true;
+      #
+      #     colors = {
+      #       copy = config.gruvbox-hex.neutral_yellow;
+      #       delete = config.gruvbox-hex.neutral_red;
+      #       change = config.gruvbox-hex.neutral_orange;
+      #       format = config.gruvbox-hex.neutral_blue;
+      #       insert = config.gruvbox-hex.neutral_aqua;
+      #       visual = config.gruvbox-hex.neutral_green;
+      #     };
+      #   };
+      #   package = pkgs.vimUtils.buildVimPlugin {
+      #     name = "modes.nvim";
+      #     src = pkgs.fetchFromGitHub {
+      #       owner = "mvllow";
+      #       repo = "modes.nvim";
+      #       rev = "64a78c397b6810fdbbbb5c36b375a5a4337c7be9";
+      #       hash = "sha256-j0E2Hyd03w6x/l2jQAQ1Pr/rbvAe8NbsEc30UHrrNWg=";
+      #     };
+      #   };
+      # };
     };
   };
 }

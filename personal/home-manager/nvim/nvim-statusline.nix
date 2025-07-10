@@ -23,7 +23,6 @@ with outputs.lib.lua; {
           lualine_a = [ "mode" ];
           lualine_b = [ "branch" ];
           lualine_c = [ "tabs" ];
-          lualine_x = [ "%S" ];
           lualine_y = [ ];
           lualine_z = [ "datetime" ];
         };
