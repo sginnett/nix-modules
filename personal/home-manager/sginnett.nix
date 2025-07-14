@@ -16,4 +16,7 @@
     enable = lib.mkDefault config.sginnett.personal.enable;
     sginnett.defaults.enable = lib.mkDefault config.sginnett.personal.enable;
   };
+
+  config.programs.fish.enable = true;
+  config.home.shell.enableFishIntegration = true;
 }
