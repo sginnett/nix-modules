@@ -51,12 +51,5 @@ with outputs.lib.lua; {
         '');
       };
     };
-
-    # My Keymaps
-    # Included near end of config so that it overwrites any
-    # auto created keymaps from plugins
-    extraLuaConfig = lib.mkAfter ''
-      require('keymaps')
-    '';
   };
 }

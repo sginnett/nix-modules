@@ -7,13 +7,17 @@
         opts = {
           modes = {
             char = {
-              enabled = true;
-              autohide = false;
-              jump_labels = true;
-              multi_line = true;
+              enabled = false;
             };
           };
         };
+
+        config = ''
+          function(_, opts)
+            require("flash").setup(opts)
+            require("flash-motions").setup()
+          end
+        '';
       };
 
       # Move around the treesitter

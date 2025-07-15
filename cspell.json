@@ -26,6 +26,7 @@
     {
       "locale":"*",
       "languageId":"vim,lua",
+      "allowCompoundWords":true,
       "dictionaries":["vim", "vim-plugins"]
     },
     {

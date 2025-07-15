@@ -1,4 +1,5 @@
-function init#Init()
+function init#Init() "{{{
   call opts#Setup()
-  call trail_space#Setup()
-endfunction
+  call whitespace#Setup()
+  call fold#Setup()
+endfunction "}}}
