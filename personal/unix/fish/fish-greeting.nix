@@ -10,7 +10,7 @@
   config = lib.mkIf config.programs.fish.defaultGreeting {
     programs.fish.functions = {
       fish_greeting = {
-        source = ''${pkgs.neofetch}/bin/neofetch'';
+        body = ''${pkgs.neofetch}/bin/neofetch'';
       };
     };
   };

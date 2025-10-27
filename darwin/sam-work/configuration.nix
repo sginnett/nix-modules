@@ -9,6 +9,14 @@
     homeDirectory = "/Users/sginnett";
   };
 
+  development = {
+    lilypond.enable = true;
+    latex.enable = true;
+    latex.package = pkgs.texlive.combined.scheme-medium;
+  };
+
+  nix.settings.trusted-users = [ "sginnett" ];
+
   # users.users.sginnett.home = "/Users/sginnett";
 
   system.stateVersion = 5;

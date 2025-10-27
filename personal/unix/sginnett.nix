@@ -1,5 +1,6 @@
 { config, lib, outputs, pkgs, ... }:
-{
+let mypkgs = outputs.packages.${pkgs.stdenv.system};
+in {
   options = {
     sginnett.personal = {
       enable = lib.mkEnableOption "sginnett's personal configuration -- requires access to my git-crypt keys";
@@ -31,6 +32,7 @@
   config.programs = lib.mkIf config.sginnett.personal.enable {
     fish.defaults.enable = true;
   };
+
   config.sginnett.personal.gitEmail = lib.mkIf config.sginnett.personal.enable (lib.mkDefault (builtins.readFile ../../private/git-email.txt));
   config.environment = lib.mkIf config.sginnett.personal.enable {
     # TODO: modularize
@@ -44,6 +46,8 @@
         httpie
 
         git
+        mypkgs.git-recent
+        git-recent
         git-crypt
         direnv
         fd
@@ -62,6 +66,8 @@
         kitty
         brave
         tdf
+        anki-bin
+        devenv
     ];
   };
   config.home-manager = lib.mkIf config.sginnett.personal.enable {

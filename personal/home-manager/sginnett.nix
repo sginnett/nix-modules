@@ -17,6 +17,7 @@
     sginnett.defaults.enable = lib.mkDefault config.sginnett.personal.enable;
   };
 
-  config.programs.fish.enable = true;
-  config.home.shell.enableFishIntegration = true;
+  config.fonts.fontconfig.enable = lib.mkDefault config.sginnett.personal.enable;
+
+  config.programs.fish.sginnett.defaults.enable = lib.mkDefault config.sginnett.personal.enable;
 }

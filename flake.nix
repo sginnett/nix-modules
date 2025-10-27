@@ -9,11 +9,19 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-darwin }@inputs: let
+  outputs = { self, nixpkgs, home-manager, nix-darwin, flake-utils }@inputs: let
     inherit (self) outputs;
+    lib = nixpkgs.lib;
+    forAllSystems = lib.genAttrs lib.systems.flakeExposed;
   in {
     # Helper functions
-    lib = import ./lib { lib = nixpkgs.lib; };
+    lib = import ./lib { inherit lib; };
+
+    packages = forAllSystems (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in import ./packages { inherit pkgs lib; }
+    );
 
     # Modules specific to NixOS
     nixosModules = outputs.lib.files.readModuleDir ./modules/nixos;

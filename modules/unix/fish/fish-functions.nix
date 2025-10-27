@@ -1,12 +1,14 @@
 { lib, config, pkgs, ... }: {
   options = {
     programs.fish.functions = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.coercedTo lib.types.lines (lines: { source = lines; })
+      type = lib.types.attrsOf (lib.types.coercedTo
+        lib.types.lines
+        (lines: { body = lines; })
         (lib.types.submodule ({config, name, ...}: {
         options = {
           source = lib.mkOption {
-            type = lib.types.oneOf [ lib.types.lines lib.types.path ];
-            default = "";
+            type = lib.types.nullOr lib.types.path;
+            default = null;
           };
 
           name = lib.mkOption {
@@ -27,6 +29,12 @@
             description = "Name of the function this function wraps, used for generating completions";
           };
 
+          body = lib.mkOption {
+            type = lib.types.nullOr lib.types.lines;
+            default = null;
+            description = "Body of the function";
+          };
+
           argumentNames = lib.mkOption {
             type = lib.types.nullOr (lib.types.listOf lib.types.str);
             default = null;
@@ -40,7 +48,12 @@
           };
 
           fullSource = lib.mkOption {
-            type = lib.types.nullOr lib.types.lines;
+            type = lib.types.nullOr (
+              lib.types.coercedTo
+                lib.types.path
+                (path: if builtins.isPath path then builtins.readFile path else path)
+                lib.types.lines
+            );
             default = null;
             description = "Full source code of the function, derived from other options is not overriden";
           };
@@ -57,7 +70,10 @@
             fullSource = lib.mkBefore ''${config.functionDeclaration}'';
           }
           {
-            fullSource = config.source;
+            fullSource = lib.mkIf (config.source != null) config.source;
+          }
+          {
+            fullSource = lib.mkIf (config.body != null) config.body;
           }
           {
             fullSource = lib.mkAfter ''end'';
@@ -80,8 +96,5 @@
           src = "${fishFunctions}";
         })
       ];
-      programs.fish.functions.testfn = {
-        source = "echo 'This is a test function'";
-      };
   };
 }
